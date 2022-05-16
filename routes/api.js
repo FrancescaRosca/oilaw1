@@ -6,54 +6,59 @@ router.get("/", (req, res) => {
   res.send("Welcome to the API");
 });
 
-// const sendAllUsers = (req, res) => {
-//   db("SELECT * FROM items ORDER BY id ASC;")
-//     .then(results => {
-//       res.send(results.data);
-//     })
-//     .catch(err => res.status(500).send(err));
-// };
+const sendAllUsers = (req, res) => {
+  db("SELECT * FROM users ORDER BY id ASC;")
+    .then(results => {
+      res.send(results.data);
+    })
+    .catch(err => res.status(500).send(err));
+};
 
-// router.get("/todos", (req, res) => {
-//   // Send back the full list of items
-//   sendAllTodos(req, res);
-// });
+router.get("/users", (req, res) => {
+  // Send back the full list of items
+  sendAllUsers(req, res);
+});
 
-// router.post("/todos", (req, res) => {
-//   // The request's body is available in req.body
-//   // If the query is successfull you should send back the full list of items
-//   // Add your code here
-//   db(
-//     `INSERT INTO items (text, complete) VALUES ("${req.body.text}", ${req.body.complete} );`
-//   )
-//     .then(() => {
-//       sendAllTodos(req, res);
-//     })
-//     .catch(err => res.status(500).send(err));
-// });
+router.post("/users", (req, res) => {
+  // The request's body is available in req.body
+  // If the query is successfull you should send back the full list of items
+  // Add your code here
+  db(
+    `INSERT INTO users (first_name, last_name, email, tel_number, contact_preference) VALUES ("${req.body.first_name}", "${req.body.last_name}", "${req.body.email}", ${req.body.tel_number}, "${req.body.contact_preference}" );`
+  )
+    .then(() => {
+      sendAllUsers(req, res);
+    })
+    .catch(err => res.status(500).send(err));
+});
 
-// router.put("/todos/:todo_id", (req, res) => {
-//   // The request's body is available in req.body
-//   // URL params are available in req.params
-//   // If the query is successfull you should send back the full list of items
-//   // Add your code here
-//   db(
-//     `UPDATE items SET text = "${req.body.text}", complete = ${req.body.complete} WHERE id = ${req.params.todo_id};`
-//   )
-//     .then(() => {
-//       sendAllTodos(req, res);
-//     })
-//     .catch(err => res.status(500).send(err));
-// });
+router.put("/users/:user_id", (req, res) => {
+  // The request's body is available in req.body
+  // URL params are available in req.params
+  // If the query is successfull you should send back the full list of items
+  // Add your code here
+  db(
+    `UPDATE users SET 
+    first_name = "${req.body.first_name}", 
+    last_name = "${req.body.last_name}", 
+    email = "${req.body.email}", 
+    tel_number = ${req.body.tel_number}, 
+    contact_preference = "${req.body.contact_preference}" WHERE id = ${req.params.user_id};`
+  )
+    .then(() => {
+      sendAllUsers(req, res);
+    })
+    .catch(err => res.status(500).send(err));
+});
 
-// router.delete("/todos/:todo_id", (req, res) => {
-//   // URL params are available in req.params
-//   // Add your code here
-//   db(`DELETE FROM items WHERE id=${req.params.todo_id};`)
-//     .then(() => {
-//       sendAllTodos(req, res);
-//     })
-//     .catch(err => res.status(500).send(err));
-// });
+router.delete("/users/:user_id", (req, res) => {
+  // URL params are available in req.params
+  // Add your code here
+  db(`DELETE FROM users WHERE id=${req.params.user_id};`)
+    .then(() => {
+      sendAllTodos(req, res);
+    })
+    .catch(err => res.status(500).send(err));
+});
 
 module.exports = router;
