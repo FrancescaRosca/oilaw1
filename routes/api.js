@@ -24,12 +24,21 @@ router.post("/users", (req, res) => {
   // If the query is successfull you should send back the full list of items
   // Add your code here
   db(
-    `INSERT INTO users (first_name, last_name, email, tel_number, contact_preference) VALUES ("${req.body.first_name}", "${req.body.last_name}", "${req.body.email}", ${req.body.tel_number}, "${req.body.contact_preference}" );`
+    `INSERT INTO users (first_name, last_name, email, tel_number, contact_preference) VALUES ("${req.body.first_name}", "${req.body.last_name}", "${req.body.email}", ${req.body.tel_number}, "${req.body.contact_preference}" );
+    SELECT LAST_INSERT_ID();`
   )
-    .then(() => {
-      sendAllUsers(req, res);
+    .then((results) => {
+      let newUserId = results.data[0].insertId;
+      db(
+        `INSERT INTO requests (request, user_id, complete) VALUES ("${req.body.request}", "${newUserId}", 0 );`
+      )
+      .then(() => {
+        sendAllUsers(req, res);
+      })
+      .catch(err => res.status(500).send(err));
     })
     .catch(err => res.status(500).send(err));
+
 });
 
 router.put("/users/:user_id", (req, res) => {

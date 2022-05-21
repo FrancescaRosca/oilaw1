@@ -18,7 +18,8 @@ con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
 
-  let sql = `DROP TABLE if exists users; 
+  let sql = `
+  DROP TABLE if exists users; 
   CREATE TABLE users(
     id INT NOT NULL AUTO_INCREMENT, 
     first_name VARCHAR(100) not null, 
@@ -26,7 +27,19 @@ con.connect(function(err) {
     email VARCHAR(50) not null, 
     tel_number INT not null, 
     contact_preference VARCHAR(100) not null, 
-    PRIMARY KEY (id));`;
+    PRIMARY KEY (id));
+
+  DROP TABLE if exists requests; 
+  CREATE TABLE requests (
+    id INT NOT NULL AUTO_INCREMENT, 
+    request TEXT not null,
+    user_id INT not null,
+    complete BOOLEAN,
+    PRIMARY KEY (id)
+ );
+  
+  `;
+
   con.query(sql, function (err, result) {
     if (err) throw err;
     console.log("Table creation `users` was successful!");
@@ -37,4 +50,12 @@ con.connect(function(err) {
   con.end();
 });
 
-
+//DROP TABLE if exists attorneys; 
+  // CREATE TABLE attorneys(
+  //   id INT NOT NULL AUTO_INCREMENT, 
+  //   first_name VARCHAR(100) not null, 
+  //   last_name VARCHAR(100) not null, 
+  //   email VARCHAR(50) not null, 
+  //   tel_number INT not null, 
+  //   PRIMARY KEY (id),
+  //   FOREIGN KEY (user_id));

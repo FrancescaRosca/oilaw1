@@ -1,0 +1,10 @@
+
+label {
+  font-weight: bold;
+}
+
+form {
+  border: medium double Azure;
+  padding: 40px;
+  margin: 0 auto;
+}
