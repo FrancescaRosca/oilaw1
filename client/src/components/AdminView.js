@@ -26,21 +26,37 @@ function AdminView({requests}) {
         });
     }, []);
   
-    // const handleComplete = (id) =>  
+    const handleComplete = (evt) => {
+      evt.preventDefault();
+      updateComplete();
+    }
+    const updateComplete = () =>  {
+      fetch("/api/users/:user_id/complete", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify( request )
+      })
+      // Continue fetch request here
+      .then(res => res.json())
+      .then(json => setRequest(json))
+      .catch(e => console.error(e))
+    }
 
 
   return (
-    <table className="container">
+    <table class="table">
             <thead>
                 <tr>
-                    <th>S.N</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email Address</th>
-                    <th>Mobile number</th>
-                    <th>Contact preference</th>
-                    <th>Request/Question</th>
-                    <th>Status</th>
+                    <th>#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email Address</th>
+                    <th scope="col">Mobile number</th>
+                    <th scope="col">Contact preference</th>
+                    <th scope="col">Request/Question</th>
+                    <th scope="col">Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,15 +64,15 @@ function AdminView({requests}) {
                 requests.map((user, index)=>{
                     return(
                         <tr key={index}>
-                            <td>{index+1}</td>
+                          <th scope="row"> {index+1} </th>
                             <td>{user.first_name}</td>
                             <td>{user.last_name}</td>
                             <td>{user.email}</td>
                             <td>{user.tel_number}</td>
                             <td>{user.contact_preference}</td>
                             <td>{user.request}</td>
-                            <td>{user.complete}</td>
-                            <button> Complete </button>
+                            <td>{user.complete===0 ? 'Incomplete' : 'Complete'}</td>
+                            <button onClick={(e)=> handleComplete(e)}> Complete </button>
                         </tr>
                     )
                 })

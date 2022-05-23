@@ -7,7 +7,19 @@ router.get("/", (req, res) => {
 });
 
 const sendAllUsers = (req, res) => {
-  db("SELECT * FROM users ORDER BY id ASC;")
+  db(`SELECT
+  users.first_name,
+  users.last_name,
+  users.email,
+  users.tel_number,
+  users.contact_preference,
+  users.id,
+  requests.request,
+  requests.complete
+  FROM users 
+  INNER JOIN requests
+  ON users.id = requests.user_id
+  ORDER BY first_name ASC;` )
     .then(results => {
       res.send(results.data);
     })
@@ -46,32 +58,18 @@ router.put("/users/:user_id/complete", (req, res) => {
   // The request's body is available in req.body
   // If the query is successfull you should send back the full list of items
   // Add your code here
-  db(
-    `UPDATE users SET 
-    first_name = "${req.body.first_name}", 
-    last_name = "${req.body.last_name}", 
-    email = "${req.body.email}", 
-    tel_number = ${req.body.tel_number}, 
-    contact_preference = "${req.body.contact_preference}"
-    WHERE id = ${req.params.user_id};
-    SELECT LAST_INSERT_ID();`
-  )
-    .then((results) => {
-      let newUserId = results.data[0].insertId;
+  
       db(
         `UPDATE requests SET
-        request = "${req.body.request}", 
-        user_id = "${newUserId}, 
-        complete = 1;`
+        complete = 1 
+        WHERE id = ${req.params.user_id};`
       )
       .then(() => {
         sendAllUsers(req, res);
       })
       .catch(err => res.status(500).send(err));
     })
-    .catch(err => res.status(500).send(err));
 
-});
 
 
 router.put("/users/:user_id", (req, res) => {
