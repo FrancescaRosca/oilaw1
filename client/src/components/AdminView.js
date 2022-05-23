@@ -1,78 +1,68 @@
-import React, { useState } from "react";
+import React, {useState, useEffect} from "react";
 import "./AdminView.css";
 
-function AdminView(props) {
-  const [project, setProject] = useState({
-    url: "",
-    title: "",
-    description: "",
+function AdminView({requests}) {
+  const [request, setRequest] = useState({
+    first_name: "",
+    last_name: "",
+    email:"",
+    tel_number: "",
+    contact_preference: "",
+    request: "",
+    complete: "",
   });
+  
+    useEffect(() => {
+      fetch("http://localhost:5000/api/users")
+        .then(res => res.json())
+        .then(json => {
+          // upon success, update users
+          console.log(json);
+          setRequest(json);
+        })
+        .catch(error => {
+          // upon failure, show error message
+          console.log(error)
+        });
+    }, []);
+  
+    // const handleComplete = (id) =>  
 
-  const handleInputChange = (event) => {
-    const value = event.target.value;
-    const name = event.target.name;
-
-    setProject((state) => ({
-      ...state,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("form button clicked!");
-    // pass data back up to parent using props.addProject();
-    // don't forget to accept the props in the arguments of the function AdminView
-    props.addProject(project);
-    setProject({
-      url: "",
-      title: "",
-      description: "",
-    })
-  };
 
   return (
-    <div>
-      <form>
-        <div className="row">
-          <div className="col">
-            <div className="form-group">
-              <label> Project Title</label>
-              <input
-              name="title"
-              value={project.title}
-              onChange={handleInputChange}
-              className="form-control"
-              />
-            </div>
-          </div>
-          <div className="col">
-            <div className="form-group">
-              <label> Image URL </label>
-              <input
-              name="url"
-              value={project.url}
-              onChange={handleInputChange}
-              className="form-control"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="form-group">
-          <label> Project Description </label>
-            <textarea
-              name="description"
-              value={project.description}
-              onChange={handleInputChange}
-              className="form-control"
-            ></textarea>
-        </div>
-        <button onClick={handleSubmit} className="btn btn-primary">
-          Submit
-        </button>
-      </form>
-    </div>
+    <table className="container">
+            <thead>
+                <tr>
+                    <th>S.N</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email Address</th>
+                    <th>Mobile number</th>
+                    <th>Contact preference</th>
+                    <th>Request/Question</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            {
+                requests.map((user, index)=>{
+                    return(
+                        <tr key={index}>
+                            <td>{index+1}</td>
+                            <td>{user.first_name}</td>
+                            <td>{user.last_name}</td>
+                            <td>{user.email}</td>
+                            <td>{user.tel_number}</td>
+                            <td>{user.contact_preference}</td>
+                            <td>{user.request}</td>
+                            <td>{user.complete}</td>
+                            <button> Complete </button>
+                        </tr>
+                    )
+                })
+            }
+            </tbody>
+        </table>
   );
 }
 

@@ -35,7 +35,8 @@ con.connect(function(err) {
     request TEXT not null,
     user_id INT not null,
     complete BOOLEAN,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
  );
   
   `;

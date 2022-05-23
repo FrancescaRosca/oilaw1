@@ -1,45 +1,158 @@
-import React, {useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./UserView.css";
 
-function UserView({projects}) {
-    const [featured, setFeatured] = useState({
-      url: "https://cdn.pixabay.com/photo/2022/01/07/07/13/chicago-6921297_960_720.jpg",
-      title: "Chicago",
-      description: "First city I visited first abroad",
+function UserView() {
+  const [user, setUser] = useState({
+    first_name: "",
+    last_name: "",
+    email:"",
+    tel_number: "",
+    contact_preference: "",
+    request: "",
+  });
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/users")
+      .then(res => res.json())
+      .then(json => {
+        // upon success, update users
+        console.log(json);
+        setUser(json);
+      })
+      .catch(error => {
+        // upon failure, show error message
+        console.log(error)
+      });
+  }, []);
+
+  function handleChange(evt) {
+    const value = evt.target.value;
+    setUser({
+      ...user,
+      [evt.target.name]: value
+    });
+  }
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    addUser();
+  }
+
+  const addUser = () => {
+    fetch("/api/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify( user )
     })
+    // Continue fetch request here
+    .then(res => res.json())
+    .then(json => setUser(json))
+    .catch(e => console.error(e))
+  }
 
-    const handleClick = project => {
-      setFeatured(project);
-    }
 
-    return (
-    <div>
-      <div id= "featured" >
-        <div className="row"> 
-          <div className="col-4">
-            <img src={featured.url} width="200" height="200" className="img"/>
+  return (
+    <div class="container">
+      <h1>Request Form</h1>
+      <form onSubmit={e => handleSubmit(e)}>
+        
+        <div class="form-row">
+
+          <div class = "form-group col-md-6">
+            <label for="first_name"> First name </label>
+            <input
+            id="first_name"
+            class="form-control"
+            type="text"
+            name="first_name"
+            placeholder="First name"
+            value={user.first_name || ''}
+            onChange={handleChange}
+            />
           </div>
-          <div className= "col-8">
-            <h3> {featured.title} </h3>
-            <p> {featured.description} </p>
+
+          <div class = "form-group col-md-6">
+            <label for="last_name"> Last name </label>
+            <input
+            id="last_name"
+            class="form-control"
+            type="text"
+            name="last_name"
+            placeholder="Last name"
+            value={user.last_name || ''}
+            onChange={handleChange}
+            />
+           </div>
+
+        </div>
+
+        <div class="form-row">
+
+          <div class = "form-group col-md-6">
+            <label for= "email"> Email </label>
+            <input
+                  id="email"
+                  class="form-control"
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={user.email || ''}
+                  onChange={handleChange}
+                />
+          </div>
+        
+
+          <div class = "form-group col-md-6">
+          <label for="tel_number"> Mobile number </label>
+            <input
+              id="tel_number"
+              class="form-control"
+              type="text"
+              name="tel_number"
+              placeholder="Mobile number"
+              value={user.tel_number || ''}
+              onChange={handleChange}
+            />
           </div>
         </div>
-      </div>
-      <div className="container"> 
-        <div className="row" >
-          {
-              projects.map((project, index) => {
-                return <div id={index} className = "col-lg-3" > 
-                  <img onClick = {() => handleClick(project)} src= {project.url} className = "img img-responsive" width="200" height="200" />
-                </div>
-              })
-          }
+    
+
+
+        <div form-group>
+          <label for="contact_preference"> Contact Preference</label>
+            <input
+              id="contact_preference"
+              class="form-control"
+              type="text"
+              name="contact_preference"
+              placeholder="Contact Preference"
+              value={user.contact_preference || ''}
+              onChange={handleChange}
+            />
         </div>
-      </div>
+
+        <div class="form-group">
+          <label for="request"> Request/Question </label>
+            <input
+              id="request"
+              class="form-control"
+              type="text"
+              name="request"
+              value={user.request || ''}
+              onChange={handleChange}
+            />
+          
+        </div>
+
+        <div class="form-group">
+          <button class="form-control" type="submit">Submit</button>
+        </div>
+    </form>
     </div>
   );
+
 }
 
 export default UserView;
-
-//https://picsum.photos/200/300
