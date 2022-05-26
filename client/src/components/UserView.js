@@ -54,17 +54,17 @@ function UserView() {
 
 
   return (
-    <div class="container">
-      <h1>Request Form</h1>
+    <div className="container">
+      <h1 className= "title">Request Form</h1>
       <form onSubmit={e => handleSubmit(e)}>
         
-        <div class="form-row">
+        <div className="form-row">
 
-          <div class = "form-group col-md-6">
+          <div className = "form-group col-md-6">
             <label for="first_name"> First name </label>
             <input
             id="first_name"
-            class="form-control"
+            className="form-control"
             type="text"
             name="first_name"
             placeholder="First name"
@@ -73,11 +73,11 @@ function UserView() {
             />
           </div>
 
-          <div class = "form-group col-md-6">
+          <div className = "form-group col-md-6">
             <label for="last_name"> Last name </label>
             <input
             id="last_name"
-            class="form-control"
+            className="form-control"
             type="text"
             name="last_name"
             placeholder="Last name"
@@ -88,13 +88,13 @@ function UserView() {
 
         </div>
 
-        <div class="form-row">
+        <div className="form-row">
 
-          <div class = "form-group col-md-6">
+          <div className = "form-group col-md-6">
             <label for= "email"> Email </label>
             <input
                   id="email"
-                  class="form-control"
+                  className="form-control"
                   type="email"
                   name="email"
                   placeholder="Email"
@@ -104,11 +104,11 @@ function UserView() {
           </div>
         
 
-          <div class = "form-group col-md-6">
+          <div className = "form-group col-md-6">
           <label for="tel_number"> Mobile number </label>
             <input
               id="tel_number"
-              class="form-control"
+              className="form-control"
               type="text"
               name="tel_number"
               placeholder="Mobile number"
@@ -124,7 +124,7 @@ function UserView() {
           <label for="contact_preference"> Contact Preference</label>
             <input
               id="contact_preference"
-              class="form-control"
+              className="form-control"
               type="text"
               name="contact_preference"
               placeholder="Contact Preference"
@@ -133,11 +133,11 @@ function UserView() {
             />
         </div>
 
-        <div class="form-group">
+        <div className="form-group">
           <label for="request"> Request/Question </label>
             <input
               id="request"
-              class="form-control"
+              className="form-control"
               type="text"
               name="request"
               value={user.request || ''}
@@ -146,8 +146,8 @@ function UserView() {
           
         </div>
 
-        <div class="form-group">
-          <button class="form-control" type="submit">Submit</button>
+        <div className="form-group">
+          <button className="form-control" type="submit">Submit</button>
         </div>
     </form>
     </div>

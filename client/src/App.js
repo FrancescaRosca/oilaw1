@@ -15,6 +15,10 @@ function App() {
     setIsAdmin(isAdmin);
   };
 
+ const updateRequests= (results) =>{
+   setRequests(results)
+ };
+
   useEffect(() => {
     fetch("http://localhost:5000/api/users")
       .then(res => res.json())
@@ -30,12 +34,12 @@ function App() {
   }, []);
 
   return (
-    <div class="container">
+    <div className="container">
       <button className={`btn ${isAdmin ? 'btn-outline-danger' : ''}`} onClick={() => handleChangeView(true)}>ATTORNEY</button>
       <button className={`btn ${!isAdmin ? 'btn-outline-danger' : ''}`} onClick={() => handleChangeView(false)}>CLIENT</button>
 
       {
-        isAdmin ? <AdminView requests= {requests} /> : <UserView addRequest={(newRequest) => handleAddRequest(newRequest)} />
+        isAdmin ? <AdminView requests= {requests} updateRequests={updateRequests} /> : <UserView addRequest={(newRequest) => handleAddRequest(newRequest)} />
         
       }
 
