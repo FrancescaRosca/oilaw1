@@ -52,6 +52,21 @@ function UserView() {
     .catch(e => console.error(e))
   }
 
+  // NEW CODE
+
+  const [lawyers, setLawyers] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/Lawyers")
+      .then(res => res.json())
+      .then(json => {
+        console.log(json);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
 
   return (
     <div className="container">
@@ -150,6 +165,36 @@ function UserView() {
           <button className="form-control" type="submit">Submit</button>
         </div>
     </form>
+
+    
+    <h2 className="public_lawyers">You can also contact directly with one of our public lawyers:</h2>
+      <div>
+        <thead>
+          <tr>
+            <th>#</th>
+              <th scope="col">Lawyer</th>
+              <th scope="col">Phone Number</th>
+              <th scope="col">Email Address</th>
+              <th scope="col">Lawyer Type</th>
+              <th scope="col">Available</th>
+            </tr>
+          </thead>
+          <tbody>
+              {
+                  lawyers.map((lawyer, index)=>{
+                      return(
+                          <tr key={index}>
+                            <th scope="row"> {index+1} </th>
+                              <td>{lawyer.lawyer_name}</td>
+                              <td>{lawyer.id}</td>
+                              <td>{lawyer.e_mail}</td>
+                              <td>{lawyer.lawyer_type}</td>
+                          </tr>
+                      )
+                  })
+              }
+              </tbody>
+      </div>
     </div>
   );
 

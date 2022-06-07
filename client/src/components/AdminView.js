@@ -52,7 +52,7 @@ function AdminView({requests,updateRequests}) {
 
   return (
     <div className="container">
-      <table className="table">
+      <table className="text">
               <thead>
                   <tr>
                       <th>#</th>

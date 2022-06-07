@@ -103,5 +103,21 @@ router.delete("/users/:user_id", (req, res) => {
 });
 
 
+/* EXTENSION */
+
+const sendAllLawyers = (req, res) => {
+  db("SELECT * FROM Lawyers ORDER BY id ASC;")
+    .then(results => {
+      res.send(results.data);
+    })
+    .catch(err => res.status(500).send(err));
+};
+
+
+router.get("/Lawyers", (req, res) => {
+  // Send back the full list of items
+  sendAllLawyers(req, res);
+});
+
 
 module.exports = router;

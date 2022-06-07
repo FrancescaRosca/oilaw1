@@ -7,7 +7,7 @@ const DB_PASS = process.env.DB_PASS;
 const DB_NAME = process.env.DB_NAME;
 
 const con = mysql.createConnection({
-  host: DB_HOST || "127.0.0.1",
+  host: DB_HOST || "localhost",
   user: DB_USER || "root",
   password: DB_PASS,
   database: DB_NAME || "oilaw",
@@ -19,6 +19,7 @@ con.connect(function(err) {
   console.log("Connected!");
 
   let sql = `
+  DROP TABLE if exists requests; 
   DROP TABLE if exists users; 
   CREATE TABLE users(
     id INT NOT NULL AUTO_INCREMENT, 
@@ -29,7 +30,7 @@ con.connect(function(err) {
     contact_preference VARCHAR(100) not null, 
     PRIMARY KEY (id));
 
-  DROP TABLE if exists requests; 
+  
   CREATE TABLE requests (
     id INT NOT NULL AUTO_INCREMENT, 
     request TEXT not null,
@@ -38,6 +39,16 @@ con.connect(function(err) {
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users(id)
  );
+
+ DROP TABLE if exists Lawyers; 
+ CREATE TABLE Lawyers (
+	lawyer_name varchar(255) NOT NULL,
+	ID INT(255) NOT NULL AUTO_INCREMENT,
+  e_mail varchar(255) NOT NULL,
+	lawyer_type varchar(255) NOT NULL,
+
+	PRIMARY KEY (ID)
+);
   
   `;
 
