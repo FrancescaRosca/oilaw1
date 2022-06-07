@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Nuosu+SIL&display=swap');
+
+
 /* This code is from CodeAcademy example */
 
 /* body {
@@ -23,49 +26,130 @@
 
 
 
-/* ORIGINAL CSS
+
   body {
-    font-family: Arial; 
+    font-family: 'Nuosu SIL', serif;; 
     color: white;
-    display: box;
-    background: linear-gradient(-90deg, #f3e7e9, #4c68d7);
+    display: flex;
+    background-image: url(https://www.linkpicture.com/q/Diseño-sin-título.png);
+
     margin: 0;
     padding: 0;
   }
+
+  /*body {
+    font-family: 'Nuosu SIL', serif;; 
+    color: white;
+    display: flex;
+    background: linear-gradient(-90deg, #f3e7e9, #4c68d7);
+    margin: 0;
+    padding: 0;
+  }*/
+
 
   * {
     box-sizing: border-box;
   }
 
-  .title{
-    text-align: center;
+.title {
+  text-align: center;
+  font-size: 80px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+  .request_form{
+    text-align: left;
+    font-size: 25px;
+    font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 3px;
-    font-size: 3.2em;
     line-height: 48px;
-    padding-bottom: 48px;
-       color: #5543ca;
-      background: #5543ca;
-      background: -moz-linear-gradient(left,#f4524d  0%,#5543ca 100%) !important;
-      background: -webkit-linear-gradient(left,#f4524d  0%,#5543ca 100%) !important;
-      background: linear-gradient(to right,#f4524d  0%,#5543ca  100%) !important;
-      -webkit-background-clip: text !important;
-      -webkit-text-fill-color: transparent !important;
+    padding-bottom: 10px;
+    color: #7c7219;
   }
 
-  button{
-    display: inline-block;
-    background-color: #000;
-    background-image: linear-gradient(125deg,#f3e7e9, #4c68d7);
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 16px;
-    padding: 8px 16px;
-    border: none;
-    width:200px;
-    cursor: pointer;
-    font-weight: bold;
-  }
 
-*/
+
+/* CSS */
+.button-23 {
+  background-color: #FFFFFF;
+  border: 1px solid #222222;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #222222;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  margin: 0;
+  outline: none;
+  padding: 13px 23px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  touch-action: manipulation;
+  transition: box-shadow .2s,-ms-transform .1s,-webkit-transform .1s,transform .1s;
+  user-select: none;
+  -webkit-user-select: none;
+  width: auto;
+}
+
+.button-23:focus-visible {
+  box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+  transition: box-shadow .2s;
+}
+
+.button-23:active {
+  background-color: #F7F7F7;
+  border-color: #000000;
+  transform: scale(.96);
+}
+
+.button-23:disabled {
+  border-color: #DDDDDD;
+  color: #DDDDDD;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.public_lawyers {
+  color: #7c7219;
+  text-align: center;
+  letter-spacing: 3px;
+  font-size: 35px;
+  line-height: 48px;
+  padding-top: 20px;
+  padding-bottom: 15px;
+}
+
+.content-table {
+  border-collapse: collapse;
+  margin: 25px, 0px;
+  font-size: 20px;
+  min-width: 1350px;
+  border-radius: 5px 5px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+.content-table thead tr {
+  background-color: #fff;
+  color: #7c7219;
+  text-align: left;
+  font-weight: bold;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid white;
+}
+
+.content-table tbody tr:nth-of-type(even){
+  background-color: #7c7219;
+}
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 5px solid white;
+}

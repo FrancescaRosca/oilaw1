@@ -61,6 +61,7 @@ function UserView() {
       .then(res => res.json())
       .then(json => {
         console.log(json);
+        setLawyers(json)
       })
       .catch(error => {
         console.log(error);
@@ -70,7 +71,8 @@ function UserView() {
 
   return (
     <div className="container">
-      <h1 className= "title">Request Form</h1>
+      <h1 className="title">OILAW</h1>
+      <h2 className= "request_form">Request Form</h2>
       <form onSubmit={e => handleSubmit(e)}>
         
         <div className="form-row">
@@ -162,21 +164,20 @@ function UserView() {
         </div>
 
         <div className="form-group">
-          <button className="form-control" type="submit">Submit</button>
+          <button className="button-23" type="submit">Submit</button>
         </div>
     </form>
 
     
     <h2 className="public_lawyers">You can also contact directly with one of our public lawyers:</h2>
       <div>
-        <thead>
-          <tr>
-            <th>#</th>
+        <table class="content-table">
+          <thead>
+           <tr>
+              <th>#</th>
               <th scope="col">Lawyer</th>
-              <th scope="col">Phone Number</th>
               <th scope="col">Email Address</th>
               <th scope="col">Lawyer Type</th>
-              <th scope="col">Available</th>
             </tr>
           </thead>
           <tbody>
@@ -184,9 +185,8 @@ function UserView() {
                   lawyers.map((lawyer, index)=>{
                       return(
                           <tr key={index}>
-                            <th scope="row"> {index+1} </th>
+                              <td>{lawyer.ID}</td>
                               <td>{lawyer.lawyer_name}</td>
-                              <td>{lawyer.id}</td>
                               <td>{lawyer.e_mail}</td>
                               <td>{lawyer.lawyer_type}</td>
                           </tr>
@@ -194,6 +194,7 @@ function UserView() {
                   })
               }
               </tbody>
+            </table>
       </div>
     </div>
   );
